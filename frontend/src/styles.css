@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --card: #fff; }
+.card { @apply bg-white rounded-2xl shadow-sm border border-gray-100; }
+.stat { @apply p-5 flex items-start justify-between; }
+.kpi { @apply text-2xl font-bold; }
+.badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
+.badge-green { @apply bg-green-100 text-green-700; }
+.badge-blue { @apply bg-blue-100 text-blue-700; }
+.badge-amber { @apply bg-amber-100 text-amber-700; }
