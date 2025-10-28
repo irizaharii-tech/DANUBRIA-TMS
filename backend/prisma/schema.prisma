@@ -1,0 +1,62 @@
+generator client { provider = "prisma-client-js" }
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role { MANAGER DISPATCHER ACCOUNTING }
+enum OrderStatus { DRAFT PLANNED ASSIGNED LOADING LOADED IN_TRANSIT DELIVERED CANCELLED }
+
+model User {
+  id        String  @id @default(uuid())
+  email     String  @unique
+  password  String
+  role      Role
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model Customer {
+  id        String  @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Carrier {
+  id        String  @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Order {
+  id           String @id @default(uuid())
+  orderNumber  String @unique
+  customerId   String?
+  customer     Customer? @relation(fields: [customerId], references: [id])
+  carrierId    String?
+  carrier      Carrier?  @relation(fields: [carrierId], references: [id])
+  origin       String?
+  destination  String?
+  status       OrderStatus @default(PLANNED)
+  etaLoad      DateTime?
+  etaDelivery  DateTime?
+  price        Float?
+  createdAt    DateTime @default(now())
+  events       OrderEvent[]
+}
+
+model OrderEvent {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  eventType String
+  details   Json?
+  timestamp DateTime @default(now())
+}
