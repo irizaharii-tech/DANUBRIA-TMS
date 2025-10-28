@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: danubria-tms-backend
+    env: node
+    buildCommand: cd backend && npm ci && npm run build
+    startCommand: cd backend && NODE_ENV=production node dist/index.js
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+  - type: static
+    name: danubria-tms-frontend
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
