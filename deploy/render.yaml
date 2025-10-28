@@ -1,0 +1,18 @@
+# Example Render service manifest
+services:
+  - type: web_service
+    name: danubria-tms-backend
+    env: node
+    plan: standard
+    repo: github.com/your-org/your-repo
+    buildCommand: cd backend && npm ci && npm run build
+    startCommand: cd backend && NODE_ENV=production node dist/index.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase: danubria-db
+      - key: JWT_SECRET
+        value: replace_me
+  - type: static_site
+    name: danubria-tms-frontend
+    buildCommand: cd frontend && npm ci && npm run build
+    publishPath: frontend/dist
