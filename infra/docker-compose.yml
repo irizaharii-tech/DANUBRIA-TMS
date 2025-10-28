@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: danubria
+      POSTGRES_PASSWORD: supersecurepassword
+      POSTGRES_DB: danubria_tms
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+
+  adminer:
+    image: adminer
+    restart: "no"
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
