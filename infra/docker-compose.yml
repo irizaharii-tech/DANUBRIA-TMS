@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: danubria
+      POSTGRES_PASSWORD: supersecurepassword
+      POSTGRES_DB: danubria_tms
+    ports: ["5432:5432"]
+    volumes: [pg:/var/lib/postgresql/data]
+volumes:
+  pg:
