@@ -1,0 +1,31 @@
+{
+  "name": "danubria-tms-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "db:seed": "ts-node prisma/seed.ts",
+    "tools:gen-link": "ts-node src/tools/genSignedLink.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "argon2": "^0.30.0",
+    "fastify": "^4.20.0",
+    "fastify-jwt": "^6.0.0",
+    "fastify-cors": "^8.2.0",
+    "fastify-rate-limit": "^7.0.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2"
+  }
+}
